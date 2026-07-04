@@ -324,7 +324,7 @@ async def check_card_random_site(card, sites, user_id=None):
                     if (
                         "charged" in response_lower or
                         "order placed" in response_lower or
-                        "ORDER_PLACED" in api_response or
+                        "ORDER_PAID" in api_response or
                         "Order completed" in api_response or
                         "💎" in api_response or
                         "insufficient_funds" in response_lower
@@ -433,7 +433,7 @@ async def check_card_specific_site(card, site, user_id=None):
                 if (
                     "charged" in api_response.lower()
                     or "order placed" in api_response.lower()
-                    or "ORDER_PLACED" in api_response
+                    or "ORDER_PAID" in api_response
                     or "Order completed" in api_response
                     or "💎" in api_response
                 ):
@@ -1785,7 +1785,7 @@ async def process_msh_cards(event, cards, sites):
         is_charged = False
         status_header = "~~ 𝘿𝙀𝘾𝙇𝙄𝙉𝙀𝘿 ~~ ❌"
 
-        if any(x in response_text for x in ["charged", "order placed", "ORDER_PLACED", "order completed", "payment successful", "💎", "insufficient_funds"]):
+        if any(x in response_text for x in ["charged", "order placed", "ORDER_PAID", "order completed", "payment successful", "💎", "insufficient_funds"]):
             status_header = "𝘾𝙃𝘼𝙍𝙂𝙀𝘿 💎"
             is_charged = True
             await save_approved_card(card, "Charged", res.get('Response'), res.get('Gateway'), res.get('Price'))
@@ -1994,7 +1994,7 @@ async def process_mtxt_cards(event, cards, local_sites):
                     status_header = "~~ 𝘿𝙀𝘾𝙇𝙄𝙉𝙀𝘿 ~~ ❌"
                     is_hit = False
 
-                    if any(x in response_text for x in ["charged", "order placed", "ORDER_PLACED", "order completed", "payment successful", "💎", "insufficient_funds"]):
+                    if any(x in response_text for x in ["charged", "order paid", "ORDER_PAID", "order completed", "payment successful", "💎", "insufficient_funds"]):
                         charged += 1
                         status_header = "𝘾𝙃𝘼𝙍𝙂𝙀𝘿 💎"
                         is_hit = True
